@@ -1,0 +1,26 @@
+[
+  {
+    "utilisateur": "Oussama",
+    "categorie": "VIP",
+    "prix": 250,
+    "siege": "A12",
+    "rang": "1",
+    "entree": "Porte A"
+  },
+  {
+    "utilisateur": "Glody",
+    "categorie": "Standard",
+    "prix": 150,
+    "siege": "B15",
+    "rang": "2",
+    "entree": "Porte B"
+  },
+  {
+    "utilisateur": "Babatunde",
+    "categorie": "Premium",
+    "prix": 200,
+    "siege": "C10",
+    "rang": "3",
+    "entree": "Porte C"
+  }
+]
