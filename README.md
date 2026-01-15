@@ -244,3 +244,102 @@ Clique sur Try it out
 Dans question, écris : Combien de billets ont été réservés ?
 
 Clique sur Execute
+
+
+
+
+@startuml
+
+package models {
+    class Utilisateur {
+        - nom : String
+        - email : String
+        - langue : String
+        + reserver_billet(e : Evenement, n : int)
+        + recevoir_notification(message : String)
+    }
+
+    class Supporter {
+        - pays : String
+        - prix_enthousiasme : Float
+        + encourager(e : Evenement)
+    }
+
+    class Lieu {
+        - nom : String
+        - adresse : String
+        - capacite : int
+        + afficher_info()
+        + verifier_capacite(nbr_personnes : int) : bool
+    }
+
+    class Stade {
+        - nom_stade : String
+        - type_terrain : String
+        + obtenir_details_stade()
+    }
+
+    class Billet {
+        - id_billet : String
+        - prix_terrain : Float
+        - categorie : String
+        - match : String
+        + obtenir_details()
+    }
+
+    class Evenement {
+        - id_evenement : String
+        - nom : String
+        - date : datetime
+        - prix_billet : Float
+        - participants : List<Utilisateur>
+        - billets : List<Billet>
+        - supporters : List<Supporter>
+        + ajouter_evenement()
+        + notifier_participants()
+        + creer_billet(id_billet : String, categorie : String) : Billet
+        + ajouter_supporter(s : Supporter)
+    }
+
+    Stade --|> Lieu
+    Supporter --|> Utilisateur
+
+    Evenement --> "1" Stade
+    Evenement --> "*" Billet
+    Evenement --> "*" Utilisateur : participants
+    Evenement --> "*" Supporter : supporters
+    Utilisateur --> Evenement : reserve
+    Supporter --> Evenement : encourage
+}
+
+package routes {
+    class reservation_routes {
+        + router
+    }
+}
+
+package gui {
+    class interface {
+        + app
+    }
+}
+
+package services {
+    class reservation_service {
+        + logique_reservation()
+    }
+}
+
+package utils {
+    class data_manager {
+        + load_json()
+        + save_json()
+    }
+}
+
+interface --> reservation_routes
+reservation_routes --> reservation_service
+reservation_service --> data_manager
+reservation_service --> Evenement
+
+@enduml
